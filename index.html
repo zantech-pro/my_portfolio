@@ -1,109 +1,965 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio de Zander</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 20px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zander Lopes — Arquiteto de Infra & DevOps | Dev Mobile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e14;
+    --bg2: #0f1520;
+    --bg3: #151e2e;
+    --accent: #00e5a0;
+    --accent2: #0091ff;
+    --text: #e2e8f4;
+    --muted: #7a8aaa;
+    --border: rgba(0,229,160,0.12);
+    --card-bg: rgba(15,21,32,0.9);
+  }
 
-        h1 {
-            color: #0073e6;
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
+  html { scroll-behavior: smooth; }
 
-        .card {
-            background: white;
-            padding: 20px;
-            width: 200px;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            font-size: 18px;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-            text-align: center;
-        }
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
 
-        .card:hover {
-            transform: scale(1.1);
-            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
-        }
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-        .card span {
-            display: block;
-            font-size: 14px;
-            font-weight: normal;
-            margin-top: 5px;
-            color: #555;
-        }
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 4rem;
+    background: rgba(10,14,20,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
 
-        .nivel {
-            font-size: 12px;
-            font-style: italic;
-            color: #333;
-            margin-top: 5px;
-        }
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
 
-        .python { background-color: #FFD43B; color: #333; }
-        .java { background-color: #f89820; color: white; }
-        .php { background-color: #777BB4; color: white; }
-        .html { background-color: #e34c26; color: white; }
-        .css { background-color: #264de4; color: white; }
-        .javascript { background-color: #f7df1e; color: black; }
-        .mysql { background-color: #00758F; color: white; }
-        .postgresql { background-color: #336791; color: white; }
-        .agil { background-color: #34a853; color: white; }
-        .rad { background-color: #FF5722; color: white; }
-        .uml { background-color: #6A1B9A; color: white; }
-        .modelagem { background-color: #009688; color: white; }
-    </style>
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 8rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-photo-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .hero-photo {
+    width: 240px;
+    height: 240px;
+    border-radius: 12px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    border: 2px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-photo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 1px solid rgba(0,229,160,0.25);
+    border-radius: 16px;
+    z-index: 0;
+  }
+
+  .hero-photo-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    right: -12px;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    opacity: 0.12;
+    border-radius: 8px;
+    z-index: 0;
+  }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 span { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    background: rgba(0,229,160,0.05);
+    letter-spacing: 0.05em;
+  }
+
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0e14;
+  }
+  .btn-primary:hover { background: #00ffb3; transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+  }
+  .btn-outline:hover { background: rgba(0,229,160,0.08); transform: translateY(-1px); }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* SECTION HEADINGS */
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+  }
+
+  .section-title span { color: var(--accent); }
+
+  /* SOBRE */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .about-text p strong { color: var(--text); font-weight: 600; }
+
+  .about-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .highlight-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    border-radius: 4px;
+  }
+
+  .highlight-card h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .highlight-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .skills-column h3 {
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .skill-name {
+    font-size: 0.9rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .skill-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .skill-level {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .skill-bar-bg {
+    width: 100%;
+    height: 2px;
+    background: var(--bg3);
+    border-radius: 99px;
+    margin-top: 0.3rem;
+  }
+
+  .skill-bar {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 1s ease;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.75rem;
+    transition: border-color 0.2s, transform 0.2s;
+    text-decoration: none;
+    display: block;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .project-card.featured {
+    grid-column: 1 / -1;
+    border-color: rgba(0,229,160,0.3);
+    background: linear-gradient(135deg, rgba(0,229,160,0.04), rgba(0,145,255,0.04));
+  }
+
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .project-icon {
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    background: rgba(0,229,160,0.1);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .project-featured-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .project-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .project-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(0,145,255,0.08);
+    border: 1px solid rgba(0,145,255,0.2);
+    border-radius: 2px;
+    color: var(--accent2);
+  }
+
+  /* INFRA */
+  .infra-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .infra-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+  }
+
+  .infra-card h4 {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .infra-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .infra-card ul li {
+    font-size: 0.83rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .infra-card ul li::before {
+    content: '▸';
+    color: var(--accent);
+    font-size: 0.7rem;
+  }
+
+  /* CONTACT */
+  .contact-wrapper {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 3rem;
+    text-align: center;
+  }
+
+  .contact-wrapper p {
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    font-size: 0.95rem;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  footer p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  footer span { color: var(--accent); }
+
+  /* DIVIDER */
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-photo-wrap { order: -1; display: flex; justify-content: center; }
+    .hero-photo { width: 160px; height: 160px; }
+    .hero-stats { flex-wrap: wrap; }
+    .about-grid,
+    .skills-grid,
+    .projects-grid,
+    .infra-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: 1; }
+    .hero-stats { gap: 1.5rem; }
+    .hero h1 { font-size: 2rem; }
+  }
+</style>
 </head>
 <body>
 
-    <h1>Olá, sou Zander!</h1>
-    <p>Sou estudante de <strong>Análise e Desenvolvimento de Sistemas</strong> e atuo na área de <strong>TIC</strong>. Tenho experiência com ISPs, soluções de rede, datacenters e projetos de transformação digital.</p>
+<nav>
+  <div class="nav-logo">zander@zantech:~$</div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#infra">Infraestrutura</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
 
-    <p>Atualmente, trabalho como <strong>Engenheiro Comercial</strong>, onde realizo análise de editais, pré-vendas, pós-vendas e arquitetura de soluções para ISPs.</p>
-
-    <p>Também sou fundador da <strong>Zantech</strong>, empresa focada em transformação digital, e estou desenvolvendo um aplicativo com OCR para reconhecimento de placas(Projeto Pessoal).</p>
-
-    <p><strong>Busco oportunidades em Engenharia de Software/Desenvolvedor</strong>, visando ganhar mais experiência prática em desenvolvimento, especialmente com <strong>Python, PHP e Java</strong>. Tenho interesse em atuar como <strong>estagiário, freelancer ou desenvolvedor júnior</strong>, contribuindo com soluções inovadoras e aprimorando minhas habilidades técnicas.</p>
-
-    <h2>🚀 Tecnologias</h2>
-    <div class="container">
-        <div class="card python">Python <span class="nivel">Nível: Acadêmico</span></div>
-        <div class="card java">Java <span class="nivel">Nível: Acadêmico</span></div>
-        <div class="card php">PHP <span class="nivel">Nível: Acadêmico</span></div>
-        <div class="card html">HTML <span class="nivel">Nível: Acadêmico</span></div>
-        <div class="card css">CSS <span class="nivel">Nível: Acadêmico</span></div>
-        <div class="card javascript">JavaScript <span class="nivel">Nível: Acadêmico</span></div>
-        <div class="card mysql">MySQL <span class="nivel">Nível: Acadêmico</span></div>
-        <div class="card postgresql">PostgreSQL <span class="nivel">Nível: Acadêmico</span></div>
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">Disponível para oportunidades</div>
+      <h1>Zander Lopes<br><span>Arquiteto de Infra</span><br>& DevOps Engineer</h1>
+      <p class="hero-sub">
+        10+ anos construindo infraestruturas que não caem — agora também desenvolvendo sistemas e apps mobile que funcionam mesmo quando a rede falha.
+      </p>
+      <div class="hero-badges">
+        <span class="badge">Multi-Cloud · GCP · Azure</span>
+        <span class="badge">DevOps · Automação</span>
+        <span class="badge">React Native · TypeScript</span>
+        <span class="badge">Observabilidade · Zabbix · Grafana</span>
+        <span class="badge">BGP · DDoS · ISP</span>
+        <span class="badge">ADS · Estácio</span>
+      </div>
+      <div class="hero-cta">
+        <a href="https://www.linkedin.com/in/zander-de-jesus-lopes-0854a775/" target="_blank" class="btn btn-primary">LinkedIn</a>
+        <a href="https://github.com/zantech-pro" target="_blank" class="btn btn-outline">GitHub</a>
+        <a href="mailto:dev@zantech.com.br" class="btn btn-outline">Contato</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Anos em TI</div>
+        </div>
+        <div>
+          <div class="stat-num">N3</div>
+          <div class="stat-label">Nível de infra</div>
+        </div>
+        <div>
+          <div class="stat-num">B2B</div>
+          <div class="stat-label">Gov · ISPs · Enterprise</div>
+        </div>
+        <div>
+          <div class="stat-num">IaC</div>
+          <div class="stat-label">Infra como Código</div>
+        </div>
+      </div>
     </div>
-
-    <h2>📌 Metodologias</h2>
-    <div class="container">
-        <div class="card agil">Ágil <span class="nivel">Nível: Acadêmico</span></div>
-        <div class="card rad">RAD <span class="nivel">Nível: Acadêmico</span></div>
-        <div class="card uml">UML <span class="nivel">Nível: Acadêmico</span></div>
-        <div class="card modelagem">Modelagem de Dados <span class="nivel">Nível: Acadêmico</span></div>
+    <div class="hero-photo-wrap">
+      <img src="foto.png" alt="Zander Lopes" class="hero-photo" />
     </div>
+  </div>
+</section>
 
-    <h2>📞 Contato</h2>
-    <p>📩 <a href="mailto:dev@zantech.com.br">dev@zantech.com.br</a> | 💼 <a href="https://www.linkedin.com/in/zander-de-jesus-lopes-0854a775/" target="_blank">LinkedIn</a></p>
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="section-tag">// sobre mim</div>
+  <h2 class="section-title">Infra que não cai.<br><span>Apps que não param.</span></h2>
+  <div class="divider"></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Infraestruturas resilientes e aplicações que funcionam mesmo sem internet têm uma coisa em comum: foram pensadas por quem entende <strong>os dois lados</strong>.</p>
+      <p>Com mais de 10 anos atuando do suporte N3 à Arquitetura de Soluções para empresas <strong>B2B, Governo e ISPs</strong>, recentemente concluí minha graduação em <strong>Análise e Desenvolvimento de Sistemas</strong>.</p>
+      <p>O que parecia uma transição virou uma vantagem competitiva real: enxergo problemas de infraestrutura com <strong>olhos de desenvolvedor</strong>, e problemas de software com a mentalidade de quem já viu sistemas críticos falharem às 3h da manhã.</p>
+      <p>Fundador da <strong>Zantech</strong> — empresa focada em transformação digital para microempreendedores e PMEs.</p>
+    </div>
+    <div class="about-highlights">
+      <div class="highlight-card">
+        <h4>→ Automação de Elite</h4>
+        <p>Eliminação de toil via PowerShell/Shell Script e orquestração de APIs. Integração avançada NinjaOne para MDM e inventário automatizado.</p>
+      </div>
+      <div class="highlight-card">
+        <h4>→ Arquitetura Cloud & DRP</h4>
+        <p>Multi-Cloud (GCP + Azure) e Datacenter Zadara. DRP documentado e testado — continuidade do negócio como entregável real.</p>
+      </div>
+      <div class="highlight-card">
+        <h4>→ Offline-First Development</h4>
+        <p>Desenvolvi o SweetControl: app mobile com Redux Persist que opera 100% sem internet e sincroniza ao detectar conexão.</p>
+      </div>
+      <div class="highlight-card">
+        <h4>→ Redes de Missão Crítica</h4>
+        <p>Projetos de arquitetura com BGP, ASN, CGNAT e proteção DDoS para ISPs e ambientes que não podem parar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS DEV -->
+<section id="skills">
+  <div class="section-tag">// stack técnica</div>
+  <h2 class="section-title">Desenvolvimento<br><span>de Software</span></h2>
+  <div class="divider"></div>
+  <div class="skills-grid">
+    <div class="skills-column">
+      <h3>// Mobile & Frontend</h3>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>React Native + Expo</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:80%"></div></div>
+        </div>
+        <span class="skill-level">Avançado</span>
+      </div>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>TypeScript</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:75%"></div></div>
+        </div>
+        <span class="skill-level">Avançado</span>
+      </div>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>Redux Toolkit</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:75%"></div></div>
+        </div>
+        <span class="skill-level">Avançado</span>
+      </div>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>HTML · CSS · JavaScript</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:70%"></div></div>
+        </div>
+        <span class="skill-level">Intermediário</span>
+      </div>
+    </div>
+    <div class="skills-column">
+      <h3>// Backend & Dados</h3>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>PHP 8.2 (REST API)</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:80%"></div></div>
+        </div>
+        <span class="skill-level">Avançado</span>
+      </div>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>Python</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:70%"></div></div>
+        </div>
+        <span class="skill-level">Intermediário</span>
+      </div>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>Java + Spring Boot</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:60%"></div></div>
+        </div>
+        <span class="skill-level">Intermediário</span>
+      </div>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>MySQL · PostgreSQL</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:80%"></div></div>
+        </div>
+        <span class="skill-level">Avançado</span>
+      </div>
+    </div>
+    <div class="skills-column">
+      <h3>// Automação & Scripts</h3>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>PowerShell</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:92%"></div></div>
+        </div>
+        <span class="skill-level">Expert</span>
+      </div>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>Shell Script (Bash)</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div>
+        </div>
+        <span class="skill-level">Expert</span>
+      </div>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>Orquestração de APIs</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div>
+        </div>
+        <span class="skill-level">Avançado</span>
+      </div>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>Jest (Testes Unitários)</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:65%"></div></div>
+        </div>
+        <span class="skill-level">Intermediário</span>
+      </div>
+    </div>
+    <div class="skills-column">
+      <h3>// Metodologias</h3>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>Scrum · Kanban</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div>
+        </div>
+        <span class="skill-level">Avançado</span>
+      </div>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>UML · Modelagem de Dados</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:80%"></div></div>
+        </div>
+        <span class="skill-level">Avançado</span>
+      </div>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>Git · GitHub</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div>
+        </div>
+        <span class="skill-level">Avançado</span>
+      </div>
+      <div class="skill-item">
+        <div>
+          <div class="skill-name"><span class="skill-dot"></span>Arquitetura REST</div>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div>
+        </div>
+        <span class="skill-level">Avançado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFRA -->
+<section id="infra">
+  <div class="section-tag">// infraestrutura & devops</div>
+  <h2 class="section-title">10+ Anos de<br><span>Missão Crítica</span></h2>
+  <div class="divider"></div>
+  <div class="infra-grid">
+    <div class="infra-card">
+      <h4>☁️ Cloud & Datacenter</h4>
+      <ul>
+        <li>Google Cloud Platform (GCP)</li>
+        <li>Microsoft Azure</li>
+        <li>Datacenter Zadara</li>
+        <li>Multi-Cloud Architecture</li>
+        <li>DRP · Disaster Recovery Plan</li>
+      </ul>
+    </div>
+    <div class="infra-card">
+      <h4>📊 Observabilidade</h4>
+      <ul>
+        <li>Zabbix (monitoramento)</li>
+        <li>Grafana (dashboards)</li>
+        <li>Redução de MTTR</li>
+        <li>Alertas proativos</li>
+        <li>ManageEngine (endpoints)</li>
+      </ul>
+    </div>
+    <div class="infra-card">
+      <h4>🌐 Redes & ISP</h4>
+      <ul>
+        <li>BGP · ASN</li>
+        <li>CGNAT</li>
+        <li>Proteção DDoS</li>
+        <li>Arquitetura de rede N3</li>
+        <li>Missão crítica 24/7</li>
+      </ul>
+    </div>
+    <div class="infra-card">
+      <h4>🤖 Automação & MDM</h4>
+      <ul>
+        <li>NinjaOne (MDM)</li>
+        <li>PowerShell avançado</li>
+        <li>Shell Script</li>
+        <li>Inventário automatizado</li>
+        <li>Integração de APIs</li>
+      </ul>
+    </div>
+    <div class="infra-card">
+      <h4>🏢 Mercados Atendidos</h4>
+      <ul>
+        <li>Empresas B2B</li>
+        <li>Setor Governamental</li>
+        <li>ISPs (Provedores)</li>
+        <li>Consultoria Estratégica</li>
+        <li>Transformação Digital</li>
+      </ul>
+    </div>
+    <div class="infra-card">
+      <h4>🛡️ Segurança & Compliance</h4>
+      <ul>
+        <li>Gestão de endpoints</li>
+        <li>ManageEngine (compliance)</li>
+        <li>Ambientes zero-downtime</li>
+        <li>Políticas de segurança</li>
+        <li>Auditoria e monitoramento</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETOS -->
+<section id="projetos">
+  <div class="section-tag">// projetos</div>
+  <h2 class="section-title">O que foi<br><span>entregue</span></h2>
+  <div class="divider"></div>
+  <div class="projects-grid">
+
+    <a href="https://github.com/zantech-pro/SweetControl" target="_blank" class="project-card featured">
+      <div class="project-top">
+        <div class="project-icon">🧁</div>
+        <span class="project-featured-tag">Destaque · Extensão Universitária</span>
+      </div>
+      <div class="project-title">SweetControl</div>
+      <div class="project-desc">
+        Plataforma completa (mobile + backend) para digitalizar a gestão de confeitarias artesanais. Diferencial técnico central: arquitetura offline-first com Redux Persist — o app opera 100% sem internet e sincroniza automaticamente ao detectar conexão. Inclui PDV, controle de estoque, CRM, BI com regressão linear, análise estatística (distribuição de probabilidade, teste de hipótese) e geração de relatório em PDF.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">React Native</span>
+        <span class="project-tag">TypeScript</span>
+        <span class="project-tag">Expo</span>
+        <span class="project-tag">Redux Toolkit</span>
+        <span class="project-tag">Offline-First</span>
+        <span class="project-tag">PHP 8.2</span>
+        <span class="project-tag">MySQL</span>
+        <span class="project-tag">Jest</span>
+        <span class="project-tag">BI · Regressão Linear</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/zantech-pro/DSList-Pro" target="_blank" class="project-card">
+      <div class="project-top">
+        <div class="project-icon">☕</div>
+      </div>
+      <div class="project-title">DSList Pro</div>
+      <div class="project-desc">
+        API RESTful com Java e Spring Boot integrada a banco PostgreSQL e H2. Arquitetura em camadas com boas práticas de engenharia de software.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Java</span>
+        <span class="project-tag">Spring Boot</span>
+        <span class="project-tag">REST API</span>
+        <span class="project-tag">PostgreSQL</span>
+        <span class="project-tag">H2</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/zantech-pro/CRUDxPostgreexTkinter" target="_blank" class="project-card">
+      <div class="project-top">
+        <div class="project-icon">🐍</div>
+      </div>
+      <div class="project-title">CRUD Python + PostgreSQL</div>
+      <div class="project-desc">
+        Sistema CRUD completo com interface gráfica em Tkinter conectado ao PostgreSQL. Demonstra domínio de banco de dados relacional com Python.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">Tkinter</span>
+        <span class="project-tag">PostgreSQL</span>
+        <span class="project-tag">CRUD</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/zantech-pro/gerenciador_tarefa_backend" target="_blank" class="project-card">
+      <div class="project-top">
+        <div class="project-icon">⚙️</div>
+      </div>
+      <div class="project-title">Gerenciador de Tarefas</div>
+      <div class="project-desc">
+        Backend de sistema de tarefas em Python com foco em práticas funcionais e absorção de padrões de arquitetura de software.
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">Backend</span>
+        <span class="project-tag">REST</span>
+        <span class="project-tag">Arquitetura</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="section-tag">// contato</div>
+  <h2 class="section-title">Vamos <span>conversar</span></h2>
+  <div class="divider"></div>
+  <div class="contact-wrapper">
+    <p>Disponível para consultoria, projetos remotos e oportunidades como Arquiteto de Infraestrutura, DevOps Engineer ou Desenvolvedor. Baseado em Vila Velha — ES.</p>
+    <div class="contact-links">
+      <a href="mailto:dev@zantech.com.br" class="btn btn-primary">dev@zantech.com.br</a>
+      <a href="https://www.linkedin.com/in/zander-de-jesus-lopes-0854a775/" target="_blank" class="btn btn-outline">LinkedIn</a>
+      <a href="https://github.com/zantech-pro" target="_blank" class="btn btn-outline">GitHub</a>
+      <a href="http://www.zantech.com.br" target="_blank" class="btn btn-outline">zantech.com.br</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Feito com código e resiliência por <span>Zander Lopes</span> · zantech-pro · Vila Velha · ES</p>
+</footer>
 
 </body>
 </html>
